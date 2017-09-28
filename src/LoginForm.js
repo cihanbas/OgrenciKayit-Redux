@@ -3,9 +3,10 @@ import {TextInput, Alert} from 'react-native';
 import fireabase from 'firebase';
 
 import {Button, Spinner, CardSection, Card} from './components'
+import {EmailChanged,PasswordChanged} from './action';
+import {connect} from 'react-redux'
 
-
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,7 +81,7 @@ export default class LoginForm extends Component {
                         style={inputStyle}
                         value={this.state.email}
                         underlineColorAndroid='transparent'
-                        onChangeText={email => this.setState({email})}/>
+                        onChangeText={email => this.props.EmailChanged(email)}/>
                 </CardSection>
                 <CardSection>
                     <TextInput
@@ -89,7 +90,7 @@ export default class LoginForm extends Component {
                         style={inputStyle}
                         underlineColorAndroid='transparent'
                         value={this.state.password}
-                        onChangeText={password => this.setState({password})}/>
+                        onChangeText={password => this.props.PasswordChanged(password)}/>
                 </CardSection>
                 <CardSection>
                     {this.renderButton()}
@@ -106,3 +107,4 @@ const styles = {
         flex: 1
     }
 };
+export default connect(null,{EmailChanged,PasswordChanged})(LoginForm)

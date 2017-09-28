@@ -1,65 +1,21 @@
 import React, {Component} from 'react';
 import {TextInput, Alert} from 'react-native';
-import fireabase from 'firebase';
-
+import {connect} from 'react-redux';
 import {Button, Spinner, CardSection, Card} from './components'
-import {EmailChanged,PasswordChanged} from './action';
-import {connect} from 'react-redux'
+import {EmailChanged, PasswordChanged,LoginUser} from './action';
 
 class LoginForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            loading: false
-        };
-    }
-
     clickLogin() {
-        this.setState({loading: true});
-        console.log(this.state.loading);
-        const {email, password} = this.state;
-        if (email === '' || password === '') {
-            this.setState({loading: false});
-            Alert.alert('Mesaj', 'İlgili Alanları boş geçmeyin ', [
-                {
-                    text: 'tamam',
-                    onPress: () => console.log('Tamam')
-                }
-            ]);
-        } else {
-            fireabase
-                .auth()
-                .signInWithEmailAndPassword(email, password)
-                .then(this.loginSucces.bind(this))
-                .catch(() => {
-                    fireabase
-                        .auth()
-                        .createUserWithEmailAndPassword(email, password)
-                        .then(this.loginSucces.bind(this))
-                        .catch(this.loginFail.bind(this));
-                });
-        }
+
+        const {email, password} = this.props;
+        console.log(this.props);
+       this.props.LoginUser({email,password});
 
     }
 
-    loginFail() {
-        this.setState({loading: false});
-        Alert.alert('Mesaj', 'kullanıcı Adı ve ya şifre  hatalı', [
-            {
-                text: 'tamam',
-                onPress: () => console.log('Tamam')
-            }
-        ]);
-    }
-
-    loginSucces() {
-        this.setState({loading: false});
-    }
 
     renderButton() {
-        if (!this.state.loading) {
+        if (!this.props.loading) {
             return (
                 <Button onPress={this
                     .clickLogin
@@ -70,8 +26,9 @@ class LoginForm extends Component {
         }
         return <Spinner size='large'/>;
     }
-
     render() {
+        console.log(" this Email " + this.props.email);
+        console.log("  this.props.password" + this.props.password);
         const {inputStyle} = styles;
         return (
             <Card>
@@ -79,7 +36,7 @@ class LoginForm extends Component {
                     <TextInput
                         placeholder="E-mail"
                         style={inputStyle}
-                        value={this.state.email}
+                        value={this.props.email}
                         underlineColorAndroid='transparent'
                         onChangeText={email => this.props.EmailChanged(email)}/>
                 </CardSection>
@@ -89,7 +46,7 @@ class LoginForm extends Component {
                         secureTextEntry
                         style={inputStyle}
                         underlineColorAndroid='transparent'
-                        value={this.state.password}
+                        value={this.props.password}
                         onChangeText={password => this.props.PasswordChanged(password)}/>
                 </CardSection>
                 <CardSection>
@@ -99,6 +56,7 @@ class LoginForm extends Component {
         );
     }
 }
+
 const styles = {
     inputStyle: {
         paddingRight: 5,
@@ -107,8 +65,8 @@ const styles = {
         flex: 1
     }
 };
-const mapStateToProps=({kimlikDogrulamaResponse})=>{
-    const {email,password}=kimlikDogrulamaResponse;
-    return {email,password}
+const mapStateToProps = ({kmResponse}) => {
+    const {email, password,loading} = kmResponse;
+    return {email, password,loading};
 };
-export default connect(mapStateToProps(),{EmailChanged,PasswordChanged})(LoginForm)
+export default connect(mapStateToProps, {EmailChanged, PasswordChanged,LoginUser})(LoginForm)

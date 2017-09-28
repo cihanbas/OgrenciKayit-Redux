@@ -107,4 +107,8 @@ const styles = {
         flex: 1
     }
 };
-export default connect(null,{EmailChanged,PasswordChanged})(LoginForm)
+const mapStateToProps=({kimlikDogrulamaResponse})=>{
+    const {email,password}=kimlikDogrulamaResponse;
+    return {email,password}
+};
+export default connect(mapStateToProps(),{EmailChanged,PasswordChanged})(LoginForm)

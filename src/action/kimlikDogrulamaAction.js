@@ -10,7 +10,7 @@ export const EmailChanged=({email})=>{
 export const PasswordChanged=({password})=>{
     return (dispatch)=>{
         dispatch({
-            type:'passwordChanged',
+            type:'password_changed',
             payload:password
         })
     }

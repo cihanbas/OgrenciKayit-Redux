@@ -1,6 +1,7 @@
 import {Alert} from 'react-native';
 import fireabase from 'firebase';
-import {EMAIL_CHANGED, PASSWOD_CHANGED, LOGIN_USER,LOGIN_SUCCESS} from './types';
+import {Actions} from 'react-native-router-flux';
+import {EMAIL_CHANGED, PASSWOD_CHANGED, LOGIN_USER, LOGIN_SUCCESS} from './types';
 
 export const EmailChanged = (email) => {
     return (dispatch) => {
@@ -42,22 +43,21 @@ export const LoginUser = ({email, password}) => {
             fireabase
                 .auth()
                 .signInWithEmailAndPassword(email, password)
-                .then(user=>LoginSucces(dispatch,user))
+                .then(user => LoginSucces(dispatch, user))
                 .catch(() => {
                     fireabase
                         .auth()
                         .createUserWithEmailAndPassword(email, password)
-                        .then(user=>LoginSucces(dispatch,user))
-                        .catch(()=>LoginFail(dispatch));
+                        .then(user => LoginSucces(dispatch, user))
+                        .catch(() => LoginFail(dispatch));
                 });
         }
 
-        }
+    }
 
 };
-const LoginSucces = (dispatch,user) => {
+const LoginSucces = (dispatch, user) => {
 
-    Alert.alert("Login Success");
     dispatch({
         type: LOGIN_SUCCESS,
         payload: user
@@ -66,19 +66,17 @@ const LoginSucces = (dispatch,user) => {
         type: LOGIN_USER,
         payload: false
     });
-    console.log(user)
-
-
+    Actions.main();
 };
 const LoginFail = (dispatch) => {
     Alert.alert('Mesaj', 'kullanıcı Adı ve ya şifre  hatalı', [
         {
-            text: 'tamam',
+            text: 'Tamam',
             onPress: () => {
                 dispatch({
                     type: LOGIN_USER,
                     payload: false
-                })
+                });
             }
         }
     ]);

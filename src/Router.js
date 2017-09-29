@@ -1,7 +1,7 @@
 import React from 'react';
 import {Scene, Router} from 'react-native-router-flux';
 import {Platform, Alert} from 'react-native';
-import  {Actions} from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
 import LoginForm from './LoginForm';
 import StudentList from './components/StudentList';
@@ -14,7 +14,7 @@ const RouterComponent = () => {
             <Scene key='kimlik'>
                 <Scene key='loginScreen' component={LoginForm} title="Giriş Ekranı"/>
             </Scene>
-            <Scene key="main" >
+            <Scene key="main">
                 <Scene
                     key='studentList'
                     component={StudentList}
@@ -29,7 +29,7 @@ const RouterComponent = () => {
                     title="Öğrenci Listesi"
                     rightTitle="Yeni"
                     onRight={() => Alert.alert("Merhaba ")}
-
+                    initial
                 />
             </Scene>
         </Router>

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Platform, Text, View, TextInput,Alert} from 'react-native';
+import {Picker, View, TextInput, Alert} from 'react-native';
+import {connect} from 'react-redux';
 import {Button, Spinner, CardSection, Card} from './'
+import {studentChanged} from '../action';
 
 class StudentCreate extends Component {
     render() {
         const {inputStyle} = styles;
         return (
-            <View>
-
+            <Card>
                 <CardSection>
                     <TextInput
                         placeholder="isim"
@@ -15,7 +16,7 @@ class StudentCreate extends Component {
                         style={inputStyle}
                         underlineColorAndroid='transparent'
                         value={this.props.isim}
-                        onChangeText={isim => this.props.StudentChange(isim)}/>
+                        onChangeText={isim => this.props.studentChanged({props: 'isim', value: isim})}/>
                 </CardSection>
                 <CardSection>
                     <TextInput
@@ -23,8 +24,8 @@ class StudentCreate extends Component {
                         secureTextEntry
                         style={inputStyle}
                         underlineColorAndroid='transparent'
-                        value={this.props.SoyIsim}
-                        onChangeText={SoyIsim => this.props.StudentChange(SoyIsim)}/>
+                        value={this.props.soyisim}
+                        onChangeText={soyisim => this.props.studentChanged({props: 'soyisim', value: soyisim})}/>
                 </CardSection>
                 <CardSection>
                     <TextInput
@@ -33,15 +34,26 @@ class StudentCreate extends Component {
                         style={inputStyle}
                         underlineColorAndroid='transparent'
                         value={this.props.number}
-                        onChangeText={number => this.props.StudentChange(number)}/>
+                        onChangeText={number => this.props.studentChanged({props: 'number', value: number})}/>
                 </CardSection>
                 <CardSection>
-                    <Button onPress={()=>Alert.alert("Hello Kitty")}>
+                    <Picker
+                        style={{flex: 1}}
+                        selectValue={this.props.sube}
+                        onValueChange={sube => this.props.studentChanged({props: 'sube', value: sube})}>
+                        <Picker.Item label="A şubesi" value="asube"/>
+                        <Picker.Item label="B şubesi" value="bsube"/>
+                        <Picker.Item label="C şubesi" value="csube"/>
+                        <Picker.Item label="D şubesi" value="dsube"/>
+                        <Picker.Item label="E şubesi" value="esube"/>
+                    </Picker>
+                </CardSection>
+                <CardSection>
+                    <Button onPress={() => Alert.alert("Hello Kitty")}>
                         Kaydet
                     </Button>
                 </CardSection>
-            </View>
-
+            </Card>
         )
     }
 }
@@ -54,4 +66,10 @@ const styles = {
         flex: 1
     }
 };
-export default StudentCreate;
+
+const mapToStateProps = ({studentListResponse}) => {
+    const {isim, soyisim, number, sube} = studentListResponse;
+    return {isim, soyisim, number, sube};
+};
+
+export default connect(mapToStateProps, {studentChanged})(StudentCreate);

@@ -21,6 +21,7 @@ export const PasswordChanged = (password) => {
     }
 };
 export const LoginUser = ({email, password}) => {
+
     return (dispatch) => {
         dispatch({
             type: LOGIN_USER,
@@ -49,7 +50,7 @@ export const LoginUser = ({email, password}) => {
                         .auth()
                         .createUserWithEmailAndPassword(email, password)
                         .then(user => LoginSucces(dispatch, user))
-                        .catch(() => LoginFail(dispatch));
+                        .catch(err => LoginFail(dispatch, err));
                 });
         }
 
@@ -57,7 +58,6 @@ export const LoginUser = ({email, password}) => {
 
 };
 const LoginSucces = (dispatch, user) => {
-
     dispatch({
         type: LOGIN_SUCCESS,
         payload: user
@@ -68,7 +68,7 @@ const LoginSucces = (dispatch, user) => {
     });
     Actions.main();
 };
-const LoginFail = (dispatch) => {
+const LoginFail = (dispatch, err) => {
     Alert.alert('Mesaj', 'kullanıcı Adı ve ya şifre  hatalı', [
         {
             text: 'Tamam',

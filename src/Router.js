@@ -10,7 +10,6 @@ import StudentCreate from './components/StudentCreate';
 const RouterComponent = () => {
     return (
         <Router sceneStyle={{backgroundColor: '#e5efff', marginTop: Platform.OS === 'ios' ? 65 : 54}}>
-
             <Scene key='kimlik'>
                 <Scene key='loginScreen' component={LoginForm} title="Giriş Ekranı"/>
             </Scene>
@@ -20,18 +19,15 @@ const RouterComponent = () => {
                     component={StudentList}
                     title="Öğrenci Listesi"
                     rightTitle="Yeni"
-                    onRight={() => Actions.studentCreate()}
-
-                />
+                    onRight={() => Actions.studentCreate()}/>
                 <Scene
                     key='studentCreate'
                     component={StudentCreate}
-                    title="Öğrenci Listesi"
-                    rightTitle="Yeni"
-                    onRight={() => Alert.alert("Merhaba ")}
-                    initial
+                    title="Oğreni Kayıt"
                 />
             </Scene>
+
+
         </Router>
     )
 };

@@ -2,33 +2,27 @@ import React, {Component} from 'react';
 import {TextInput, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Button, Spinner, CardSection, Card} from './components'
-import {EmailChanged, PasswordChanged,LoginUser} from './action';
+import {EmailChanged, PasswordChanged, LoginUser} from './action';
 
 class LoginForm extends Component {
     clickLogin() {
-
         const {email, password} = this.props;
-        console.log(this.props);
-       this.props.LoginUser({email,password});
-
+        this.props.LoginUser({email, password});
     }
-
 
     renderButton() {
         if (!this.props.loading) {
             return (
-                <Button onPress={this
-                    .clickLogin
-                    .bind(this)}>
+                <Button onPress={() => this.clickLogin()
+                }>
                     Giriş
                 </Button>
             );
         }
         return <Spinner size='large'/>;
     }
+
     render() {
-        console.log(" this Email " + this.props.email);
-        console.log("  this.props.password" + this.props.password);
         const {inputStyle} = styles;
         return (
             <Card>
@@ -66,7 +60,7 @@ const styles = {
     }
 };
 const mapStateToProps = ({kmResponse}) => {
-    const {email, password,loading} = kmResponse;
-    return {email, password,loading};
+    const {email, password, loading} = kmResponse;
+    return {email, password, loading};
 };
-export default connect(mapStateToProps, {EmailChanged, PasswordChanged,LoginUser})(LoginForm)
+export default connect(mapStateToProps, {EmailChanged, PasswordChanged, LoginUser})(LoginForm)

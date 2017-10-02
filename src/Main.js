@@ -27,7 +27,4 @@ export default class Main extends Component {
             </Provider>
         );
     }
-}
-
-
-
+};

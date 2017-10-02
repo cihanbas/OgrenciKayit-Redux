@@ -3,7 +3,8 @@ import {
     PASSWOD_CHANGED,
     LOGIN_USER,
     LOGIN_SUCCESS
-} from '../action/types'
+} from '../action/types';
+
 
 const INITIAL_STATE = {
     email: 'test@test.com',

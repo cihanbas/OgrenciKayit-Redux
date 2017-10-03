@@ -6,10 +6,10 @@ import {CardSection} from './'
 class ListItem extends Component{
    clickStudents(){
        console.log(this.props);
-        Actions.studentCreate({ogrenci:this.props.ogrenci})
+        Actions.studentUpdate({ogrenci:this.props.ogrenci})
     }
     render(){
-        const {isim, soyisim} = this.props.ogrenci;
+        const {isim, soyisim} = this.props.ogrenci.val;
         return (
             <TouchableWithoutFeedback onPress={this.clickStudents.bind(this)}>
                 <View>

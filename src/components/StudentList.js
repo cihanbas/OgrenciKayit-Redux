@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, ListView, TouchableWithoutFeedback, Alert} from 'react-native';
+import { ListView} from 'react-native';
 import _ from 'lodash';
-import {Actions} from 'react-native-router-flux'
 import {connect} from 'react-redux'
 import {studentList} from '../action';
-import {Card, CardSection, Button} from './';
+import {Card} from './';
 import ListItem from './ListItem';
 
 class StudentList extends Component {
@@ -24,41 +23,25 @@ class StudentList extends Component {
         this.dataSource = ds.cloneWithRows(studentsArray);
     };
 
-    // sayHello() {
-    //     Alert.alert("dsfsdfsf");
-    //     console.log("hello Kity");
-    //     // Actions.studentCreate()
-    // }
-
-    RenderRow(ogrenci) {
+     RenderRow(ogrenci) {
         return (
-            <ListItem
-                ogrenci={ogrenci.val}
-            />
-
-
-
+            <ListItem ogrenci={ogrenci}/>
         )
     }
 
     render() {
-
-        // console.log("this.props "+this.props.studentsArray);/
         return (
             <Card>
                 <ListView
                     enableEmptySection
                     dataSource={this.dataSource}
-                    renderRow={this.RenderRow}
-                />
-
+                    renderRow={this.RenderRow}/>
             </Card>
         )
     }
 }
 
 const mapStateTo = ({studentsDataResponse}) => {
-
     const studentsArray = _.map(studentsDataResponse, (val, uid) => {
         return {val, uid};
     });

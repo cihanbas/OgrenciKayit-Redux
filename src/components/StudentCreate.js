@@ -23,6 +23,7 @@ class StudentCreate extends Component {
     }
 
     render() {
+        console.log(this.props.ogrenci)
         const {inputStyle} = styles;
         return (
             <Card>

@@ -2,7 +2,7 @@
 ## this is a login screen
 
 default email :
-###test@test.com 
+### test@test.com 
 
 password :
 ### 123456

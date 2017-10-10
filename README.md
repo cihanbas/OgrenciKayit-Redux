@@ -1,5 +1,6 @@
 # OgrenciKayit-Redux
-## this is a login screen  
+## this is a login screen
+
 default email :
 ###test@test.com 
 

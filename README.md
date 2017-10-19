@@ -4,9 +4,7 @@
 
 mkdir android/app/src/main/assets
 
-react-native bundle --platform android --dev false --entry-file index.js --bundle-output 
-
-android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
 
 npm install  react-redux redux redux-thunk react-native-router-flux react-addons-update --save﻿
 ```
